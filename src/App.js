@@ -10,6 +10,9 @@ import ImageUpload from "./ImageUpload";
 import Avatar from "@material-ui/core/Avatar";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
+import { storage } from "./firebase";
+import firebase from "firebase";
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -37,12 +40,25 @@ function App() {
   const [modalStyle] = React.useState(getModalStyle);
 
   const [posts, setPosts] = useState([]);
+  const [profile, setProfile] = useState([]);
   const [open, setOpen] = useState(false);
   const [openSignin, setOpenSignin] = useState(false);
   const [username, setUsername] = useState("");
+  const [image, setImage] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  // const handleUpload = () => {
+
+  // };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(
@@ -75,12 +91,68 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    //code
+    db.collection("users").onSnapshot((snapShot) => {
+      setProfile(
+        snapShot.docs.map((doc) => ({
+          imageUrl: doc.imageUrl,
+        }))
+      );
+    });
+  }, []);
+
   const signUp = (event) => {
     event.preventDefault();
+
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
+        if (image) {
+          const uploadTask = storage
+            .ref(`images/${image.name}`)
+            .put(image);
+
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              //progress
+              const progress = Math.round(
+                (snapshot.bytesTransferred /
+                  snapshot.totalBytes) *
+                  100
+              );
+              setProgress(progress);
+            },
+            (error) => {
+              //error function
+              console.log(error);
+              alert(error.message);
+            },
+            () => {
+              //complete function
+              storage
+                .ref("images")
+                .child(image.name)
+                .getDownloadURL()
+                .then((url) => {
+                  //post image inside
+                  db.collection("users").add({
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    imageUrl: url,
+                    username: username,
+                  });
+                  setProgress(0);
+
+                  setImage(null);
+                });
+            }
+          );
+        } else {
+          alert("Please Select An Image!!");
+        }
         return authUser.user.updateProfile({
+          photoUrl: image,
           displayName: username,
         });
       })
@@ -122,6 +194,38 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div className='imageUpload'>
+              <div className='imageUpload_content'>
+                <progress
+                  className='imageUpload_progress'
+                  value={progress}
+                  max='100'
+                />
+
+                <label class='filelabel'>
+                  <i class='fa fa-paperclip'></i>
+                  <span className='title'>Add Image</span>
+                  <input
+                    className='FileUpload1'
+                    id='FileInput'
+                    type='file'
+                    onChange={handleChange}
+                  />
+                </label>
+                {image && (
+                  <img
+                    className='imageUpload_preview'
+                    src={image}
+                    alt='Preview'
+                  ></img>
+                )}
+                {/* <Button onClick={handleUpload}>
+                  <CloudUploadIcon
+                    style={{ color: "#deb887" }}
+                  />
+                </Button> */}
+              </div>
+            </div>
             <Button type='submit' onClick={signUp}>
               Sign Up
             </Button>
@@ -167,6 +271,7 @@ function App() {
             <Avatar
               className='app_profileAvatar'
               alt={username}
+              src={user.photoUrl}
             />
             <Button onClick={() => auth.signOut()}>
               <ExitToAppIcon
