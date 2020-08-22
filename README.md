@@ -23,16 +23,20 @@ It's a social media type of project (Same or Clone of Facebook/Instagram) made w
 
 ## 1. Sign Up With Email Page
 
-<img align="left" alt="priom7" src="https://github.com/Priom7/Chat-Room-App/blob/master/Ui%20Screen%20Shots/chat-room%201.PNG" />
-
-## 1. Log in With Email Page
-
-<img align="left" alt="priom7" src="https://github.com/Priom7/Chat-Room-App/blob/master/Ui%20Screen%20Shots/chat-room%201.PNG" />
+<img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-4.png" />
 
 ## Home Page
 
-<img align="left" alt="priom7" src="https://github.com/Priom7/Chat-Room-App/blob/master/Ui%20Screen%20Shots/chat-room%202.PNG" />
+<img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram.png" />
 
 ## Image Upload
 
-<img align="left" alt="priom7" src="https://github.com/Priom7/Chat-Room-App/blob/master/Ui%20Screen%20Shots/chat-room%202.PNG" />
+<img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-2.png" />
+
+## 1. Logged Out View (Mobile)
+
+<img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-5.png" />
+
+## 1. Logged In View (Mobile)
+
+<img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-6.PNG" />
