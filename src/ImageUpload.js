@@ -3,16 +3,19 @@ import { Button } from "@material-ui/core";
 import { storage, db } from "./firebase";
 import firebase from "firebase";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import ImageIcon from "@material-ui/icons/Image";
 import "./ImageUpload.css";
 
-function ImageUpload({ username }) {
+function ImageUpload({ username, userImage }) {
   const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [progress, setProgress] = useState(0);
   const [caption, setCaption] = useState("");
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      setPreviewUrl(URL.createObjectURL(e.target.files[0]));
     }
   };
 
@@ -62,50 +65,67 @@ function ImageUpload({ username }) {
       alert("Please Select An Image!!");
     }
   };
-
+  console.log(image);
   return (
     <div className='imageUpload'>
-      <div className='imageUpload_content'>
-        <progress
-          className='imageUpload_progress'
-          value={progress}
-          max='100'
-        />
-        <input
-          className='imageUpload_caption'
-          type='text'
-          placeholder='Enter a caption...'
-          onChange={(event) =>
-            setCaption(event.target.value)
-          }
-          value={caption}
-        />
-        {/* <input
-          className='custom-file-input'
-          type='file'
-          onChange={handleChange}
-        /> */}
-
-        <label class='filelabel'>
-          <i class='fa fa-paperclip'></i>
-          <span className='title'>Add Image</span>
+      <div className='imageUpload__left'>
+        <img src={userImage} alt={username}></img>
+        <h3 className='imageUpload__username'>
+          {username}
+        </h3>
+      </div>
+      <div className='imageUpload__right'>
+        <div className='imageUpload_content'>
+          {image && (
+            <progress
+              className='imageUpload_progress'
+              value={progress}
+              max='100'
+            />
+          )}
           <input
-            className='FileUpload1'
-            id='FileInput'
-            type='file'
-            onChange={handleChange}
+            className='imageUpload_caption'
+            type='text'
+            placeholder={`Enter caption, ${username} ?`}
+            onChange={(event) =>
+              setCaption(event.target.value)
+            }
+            value={caption}
           />
-        </label>
-        {image && (
-          <img
-            className='imageUpload_preview'
-            src={image}
-            alt='Preview'
-          ></img>
-        )}
-        <Button onClick={handleUpload}>
-          <CloudUploadIcon style={{ color: "#deb887" }} />
-        </Button>
+          <div className='imageUpload__options'>
+            <div className='imageUpload__addImage'>
+              <label className='filelabel'>
+                <i class='fa fa-paperclip'></i>
+                <ImageIcon></ImageIcon>
+                <span className='title'>Add Image</span>
+                <input
+                  className='FileUpload1'
+                  id='FileInput'
+                  type='file'
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className='imageUpload__uploadBtn'>
+              <Button onClick={handleUpload}>
+                <CloudUploadIcon
+                  style={{ color: "#deb887" }}
+                />
+
+                <span style={{ color: "wheat" }}>
+                  Upload
+                </span>
+              </Button>
+            </div>
+          </div>
+          {image && (
+            <img
+              className='imageUpload_preview'
+              src={previewUrl}
+              alt='Preview'
+            ></img>
+          )}
+        </div>
       </div>
     </div>
   );

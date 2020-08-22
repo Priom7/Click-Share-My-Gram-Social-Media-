@@ -9,9 +9,12 @@ import { Button, Input } from "@material-ui/core";
 import ImageUpload from "./ImageUpload";
 import Avatar from "@material-ui/core/Avatar";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
+import InstagramEmbed from "react-instagram-embed";
 import { storage } from "./firebase";
 import firebase from "firebase";
+import HomeIcon from "@material-ui/icons/Home";
+import ExploreIcon from "@material-ui/icons/Explore";
+import GroupIcon from "@material-ui/icons/Group";
 
 function getModalStyle() {
   const top = 50;
@@ -28,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    backgroundColor: "wheat",
+    border: "1px solid wheat",
+    borderRadius: "15px",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -40,7 +44,7 @@ function App() {
   const [modalStyle] = React.useState(getModalStyle);
 
   const [posts, setPosts] = useState([]);
-  const [profile, setProfile] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const [open, setOpen] = useState(false);
   const [openSignin, setOpenSignin] = useState(false);
   const [username, setUsername] = useState("");
@@ -64,7 +68,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(
       (authUser) => {
         if (authUser) {
-          console.log(authUser);
           setUser(authUser);
         } else {
           setUser(null);
@@ -94,9 +97,10 @@ function App() {
   useEffect(() => {
     //code
     db.collection("users").onSnapshot((snapShot) => {
-      setProfile(
+      setProfiles(
         snapShot.docs.map((doc) => ({
-          imageUrl: doc.imageUrl,
+          id: doc.id,
+          profile: doc.data(),
         }))
       );
     });
@@ -219,11 +223,6 @@ function App() {
                     alt='Preview'
                   ></img>
                 )}
-                {/* <Button onClick={handleUpload}>
-                  <CloudUploadIcon
-                    style={{ color: "#deb887" }}
-                  />
-                </Button> */}
               </div>
             </div>
             <Button type='submit' onClick={signUp}>
@@ -265,14 +264,26 @@ function App() {
           alt='Md. Sharif Alam'
           className='app_headerImage'
         />
+        <div className='app__headerIcons'>
+          <HomeIcon></HomeIcon>
+          <GroupIcon></GroupIcon>
+          <ExploreIcon></ExploreIcon>
+        </div>
 
         {user ? (
           <div className='app_loginContainer'>
-            <Avatar
-              className='app_profileAvatar'
-              alt={username}
-              src={user.photoUrl}
-            />
+            <div>{user.displayName}</div>
+            {profiles.map(
+              (loggedInUser) =>
+                user?.displayName ===
+                  loggedInUser?.profile.username && (
+                  <Avatar
+                    className='app_profileAvatar'
+                    alt={loggedInUser.profile.username}
+                    src={loggedInUser.profile.imageUrl}
+                  />
+                )
+            )}
             <Button onClick={() => auth.signOut()}>
               <ExitToAppIcon
                 style={{ color: "#deb887" }}
@@ -281,20 +292,37 @@ function App() {
           </div>
         ) : (
           <div className='app_loginContainer'>
-            <Button onClick={() => setOpenSignin(true)}>
+            <Button
+              className='app__signInBtn'
+              onClick={() => setOpenSignin(true)}
+            >
               Sign In
             </Button>
-            <Button onClick={() => setOpen(true)}>
+            <Button
+              className='app__signUpBtn'
+              onClick={() => setOpen(true)}
+            >
               Sign Up
             </Button>
           </div>
         )}
       </div>
+
       {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
+        profiles.map(
+          (loggedInUser) =>
+            user?.displayName ===
+              loggedInUser?.profile?.username && (
+              <ImageUpload
+                username={user.displayName}
+                userImage={loggedInUser?.profile?.imageUrl}
+              />
+            )
+        )
       ) : (
         <h3 className='center'>Login to upload</h3>
       )}
+
       <div className='app_posts'>
         <div className='app_postLeft'>
           {posts.map(({ id, post }) => {
@@ -309,6 +337,20 @@ function App() {
               />
             );
           })}
+        </div>
+        <div className='app_postRight'>
+          <InstagramEmbed
+            url='https://www.instagram.com/p/CDyhAtQIcuj/'
+            maxWidth={320}
+            hideCaption={false}
+            containerTagName='div'
+            protocol=''
+            injectScript
+            onLoading={() => {}}
+            onSuccess={() => {}}
+            onAfterRender={() => {}}
+            onFailure={() => {}}
+          />
         </div>
       </div>
     </div>

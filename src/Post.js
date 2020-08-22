@@ -13,6 +13,7 @@ function Post({
 }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [userImages, setUserImages] = useState([]);
 
   useEffect(() => {
     let unsubscribe;
@@ -33,6 +34,19 @@ function Post({
     };
   }, [postId]);
 
+  useEffect(() => {
+    //code
+    db.collection("users").onSnapshot((snapShot) => {
+      setUserImages(
+        snapShot.docs.map((doc) => ({
+          id: doc.id,
+          profile: doc.data(),
+        }))
+      );
+    });
+  }, []);
+  console.log(userImages);
+
   const postComment = (event) => {
     event.preventDefault();
     db.collection("posts")
@@ -49,11 +63,17 @@ function Post({
   return (
     <div className='post'>
       <div className='post_header'>
-        <Avatar
-          className='post_avatar'
-          alt={username}
-          src={imageUrl}
-        />
+        {userImages.map(
+          (userImage) =>
+            username === userImage?.profile.username && (
+              <Avatar
+                className='post_avatar'
+                alt={username}
+                src={userImage?.profile?.imageUrl}
+              />
+            )
+        )}
+
         <h3>{username}</h3>
       </div>
       <img
@@ -68,10 +88,27 @@ function Post({
       <div className='post_comments'>
         {comments.map((comment) => {
           return (
-            <p>
-              <strong>{comment.username} </strong>{" "}
-              {comment.text}
-            </p>
+            <div className='post__comments'>
+              <div>
+                {userImages.map(
+                  (userImage) =>
+                    comment.username ===
+                      userImage?.profile.username && (
+                      <Avatar
+                        className='post_avatar'
+                        alt={username}
+                        src={userImage?.profile?.imageUrl}
+                      />
+                    )
+                )}
+              </div>
+              <div>
+                <p>
+                  <strong>{comment.username} </strong>{" "}
+                  {comment.text}
+                </p>
+              </div>
+            </div>
           );
         })}
       </div>

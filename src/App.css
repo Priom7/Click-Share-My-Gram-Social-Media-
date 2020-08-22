@@ -10,7 +10,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: #565656;
+  background-color: #5e1224;
   object-fit: contain;
   border-bottom: 1px solid #deb887;
   display: flex;
@@ -25,16 +25,22 @@
 .app_signUp {
   display: flex;
   flex-direction: column;
+  background-color: wheat;
+
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .app_posts {
   padding: 20px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .app_postRight {
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 .app_loginContainer {
@@ -45,7 +51,31 @@
   margin: 5px;
 }
 
+.app__signUpBtn {
+  background-color: #deb887 !important;
+  color: #5e1224 !important;
+  padding: 5px !important;
+  margin: 10px !important;
+}
+
+.app__signInBtn {
+  background-color: #deb887 !important;
+  color: #5e1224 !important;
+  padding: 5px !important;
+  margin: 10px !important;
+}
+
 /* .app_modalImage {
 	object-fit: contain;
 	width: 20%;
+} */
+
+/* .app__headerIcons {
+  color: wheat;
+
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+
+  flex-direction: row !;
 } */

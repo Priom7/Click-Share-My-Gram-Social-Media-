@@ -1,10 +1,10 @@
 .post {
-  background-color: #565656;
+  background-color: #5e1224;
   max-width: 500px;
   border: 1px solid lightgray;
   margin-bottom: 45px;
   color: #deb887;
-  border: 1px solid #565656;
+  border: 1px solid #4d0012;
   border-radius: 2%;
 }
 .post_image {
@@ -33,6 +33,7 @@
   display: flex;
   margin-top: 10px;
   border-radius: 5%;
+  padding: 10px;
 }
 
 .post_input {
@@ -53,4 +54,9 @@
 
 .post_comments {
   padding: 20px;
+}
+
+.post__comments {
+  display: flex;
+  padding: 5px;
 }
