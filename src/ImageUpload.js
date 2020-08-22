@@ -95,9 +95,8 @@ function ImageUpload({ username, userImage }) {
           <div className='imageUpload__options'>
             <div className='imageUpload__addImage'>
               <label className='filelabel'>
-                <i class='fa fa-paperclip'></i>
                 <ImageIcon></ImageIcon>
-                <span className='title'>Add Image</span>
+                {/* <span className='title'>Add Image</span> */}
                 <input
                   className='FileUpload1'
                   id='FileInput'
@@ -109,12 +108,12 @@ function ImageUpload({ username, userImage }) {
             <div className='imageUpload__uploadBtn'>
               <Button onClick={handleUpload}>
                 <CloudUploadIcon
-                  style={{ color: "#deb887" }}
+                  style={{ color: "#5e1224" }}
                 />
 
-                <span style={{ color: "wheat" }}>
+                {/* <span style={{ color: "#5e1224" }}>
                   Upload
-                </span>
+                </span> */}
               </Button>
             </div>
           </div>

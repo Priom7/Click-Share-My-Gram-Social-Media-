@@ -49,6 +49,7 @@ function App() {
   const [openSignin, setOpenSignin] = useState(false);
   const [username, setUsername] = useState("");
   const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [progress, setProgress] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,6 +58,7 @@ function App() {
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      setPreviewUrl(URL.createObjectURL(e.target.files[0]));
     }
   };
 
@@ -219,7 +221,7 @@ function App() {
                 {image && (
                   <img
                     className='imageUpload_preview'
-                    src={image}
+                    src={previewUrl}
                     alt='Preview'
                   ></img>
                 )}
@@ -265,14 +267,22 @@ function App() {
           className='app_headerImage'
         />
         <div className='app__headerIcons'>
-          <HomeIcon></HomeIcon>
-          <GroupIcon></GroupIcon>
-          <ExploreIcon></ExploreIcon>
+          <Button>
+            <HomeIcon className='app__headerIcons'></HomeIcon>
+          </Button>
+          <Button>
+            {" "}
+            <GroupIcon className='app__headerIcons'></GroupIcon>
+          </Button>
+
+          <Button>
+            {" "}
+            <ExploreIcon className='app__headerIcons'></ExploreIcon>
+          </Button>
         </div>
 
         {user ? (
           <div className='app_loginContainer'>
-            <div>{user.displayName}</div>
             {profiles.map(
               (loggedInUser) =>
                 user?.displayName ===
@@ -285,9 +295,7 @@ function App() {
                 )
             )}
             <Button onClick={() => auth.signOut()}>
-              <ExitToAppIcon
-                style={{ color: "#deb887" }}
-              ></ExitToAppIcon>
+              <ExitToAppIcon className='app__headerIcons'></ExitToAppIcon>
             </Button>
           </div>
         ) : (

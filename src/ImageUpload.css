@@ -1,5 +1,5 @@
 .imageUpload {
-  background-color: #5e1224;
+  background-color: wheat;
   position: sticky;
   bottom: 0;
   width: 90%;
@@ -34,41 +34,11 @@
 .filelabel {
   cursor: pointer;
   text-align: center;
-  color: wheat;
+  color: #5e1224;
   align-items: center;
   padding: 5px;
 }
 
-/* .filelabel {
-  margin-left: auto;
-  margin-right: auto;
-
-  border: 2px dashed black;
-  border-radius: 5px;
-  display: block;
-  padding: 5px;
-  transition: border 300ms ease;
-  cursor: pointer;
-  text-align: center;
-  margin: 0;
-}
-.filelabel i {
-  display: block;
-  font-size: 30px;
-  padding-bottom: 5px;
-}
-.filelabel i,
-.filelabel .title {
-  color: white;
-  transition: 200ms color;
-}
-.filelabel:hover {
-  border: 2px solid wheat;
-}
-.filelabel:hover i,
-.filelabel:hover .title {
-  color: wheat;
-} */
 #FileInput {
   display: none;
   cursor: pointer;
@@ -95,10 +65,13 @@
 .imageUpload__left > img {
   height: 100px;
   width: 100px;
+  border-radius: 999px;
+  margin-top: 5px;
+  padding: 5px;
 }
 
 .imageUpload__username {
-  color: wheat;
+  color: #5e1224;
   padding: 10px;
   justify-content: center;
   font-weight: 500;

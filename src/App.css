@@ -3,7 +3,7 @@
 }
 
 .app {
-  background-color: #deb887;
+  background-color: wheat;
 }
 
 .app_header {
@@ -45,6 +45,7 @@
 
 .app_loginContainer {
   display: flex;
+  align-items: center;
 }
 
 .app_profileAvatar {
@@ -65,17 +66,8 @@
   margin: 10px !important;
 }
 
-/* .app_modalImage {
-	object-fit: contain;
-	width: 20%;
-} */
-
-/* .app__headerIcons {
+.app__headerIcons {
   color: wheat;
-
+  display: flex;
   align-items: center;
-  padding: 20px;
-  background-color: white;
-
-  flex-direction: row !;
-} */
+}
