@@ -25,26 +25,32 @@ It's a social media type of project (Same or Clone of Facebook/Instagram) made w
 
 <img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-4.png" />
 
-<hr/>
+<br/>
+<br/>
 
 ## Home Page
 
 <img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram.png" />
 
-<hr/>
+<br/>
+<br/>
 
 ## Image Upload
 
 <img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-2.png" />
 
-<hr/>
+<br/>
+<br/>
 
 ## 1. Logged Out View (Mobile)
 
 <img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-5.png" />
 
-<hr/>
+<br/>
+<br/>
 
 ## 1. Logged In View (Mobile)
 
 <img align="left" alt="priom7" src="https://github.com/Priom7/Click-Share-My-Gram-Social-Media-/blob/master/UI%20Screen%20Shots/my-gram-6.PNG" />
+
+<br/>
